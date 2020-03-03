@@ -21,6 +21,10 @@ description: All things by mannharleen
 # List of links in the navigation bar
 navbar-links:
   About Me: "aboutme"
+  My other blogs:
+    - dev.to: "https://dev.to/human"    
+    - salesforce: "https://salesforcemann.wordpress.com/"
+    - bigdata: "https://bigdatamann.wordpress.com/"
   Resources:
     - My Github repos: "https://github.com/mannharleen?tab=repositories/"    
   Author's profile: "https://www.linkedin.com/in/harleenmann1/"
