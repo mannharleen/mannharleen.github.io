@@ -43,8 +43,34 @@ Go to Settings > Build > Create > Apps > New (connected app)
 - Note the client_id and client_Secret
 ---
 
-## Step 3: One time oAuth 2.0 authorization flow
-For some background on why we need this step, and what it means, refer to the Appendix at the bottom.
+## Step 3: Prior approval of the client app
+> For some background on why we need this step, and what it means, refer to the Appendix at the bottom.
+
+This is a per salesforce user (or profile) one time in a lifetime step.
+
+You can perform any of Option 1 or Option 2. 
+- Option 1: will be a backend administrative approval action
+- Option 2: gives the access to users to perform the approval action
+
+> If we dont perform Step 3, we will get the following error in step 5
+```json
+ {"error":"invalid_grant","error_description":"user hasn't approved this consumer"}
+```
+
+### Step 3 Option 1: Admin approves from Salesforce console
+Let us pretend to be an admin and approve this app/consumer to access a specific user's data associated with a specific profile.
+
+- Go to Settings > Manage Apps > Connected Apps
+- Click 'Edit' against your app
+- Choose 'Permitted Users' = 'Admin approved users are pre-authorized' 
+- Save
+.
+- Go to Settings > Manage Users > Profiles
+- Edit the profile associated to the user
+- For 'Connected App Access' under the profile, Tick '<your specific connected app>'
+
+### Step 3 Option 2: User approves by a one-time oAuth 2.0 authorization flow
+Let us pretend to be a user and approve this app/consumer to access 'my' data.
 
 Open your browser
 - Go to https://oauthdebugger.com/ // you could use any another oauth 2.0 client
@@ -139,12 +165,13 @@ curl -X GET \
 ---
 
 ## Appendix
-Step 3 is a tricky bit that took me a few iterations to figure out. Ref to the below snippet from https://help.salesforce.com/articleView?id=remoteaccess_oauth_jwt_flow.htm&type=5#grants_access
+
+### Step 3: Prior approval of the client app:  
+Ref to the below snippet from https://help.salesforce.com/articleView?id=remoteaccess_oauth_jwt_flow.htm&type=5#grants_access
 ```
 The OAuth 2.0 JWT bearer and SAML assertion bearer flow requests look at all previous approvals for the user that include a refresh token. If Salesforce finds matching approvals, it combines the values of the approved scopes. Salesforce then issues an access token. If Salesforce doesn’t find previous approvals that included a refresh token or any available approved scopes, the request fails as unauthorized.
 ```
-In simpler terms it means obtain a refresh token (using authorization flow) at least once before using jwt flow.
-> If we dont perform Step 3, we will get the following error in step 5
-```json
- {"error":"invalid_grant","error_description":"user hasn't approved this consumer"}
-```
+
+In *technical terms*, the JWT that our app sends signifies authentication, however, salesforce doesn't at this time know what resources (via claims) are available and approved by the user. Typically, we send scope parameter as part of JWT, but that isn't supported by Salesforce. So, we reply on Authorization grant or backend approval. You can read more about tokens, scopes and claims here - https://mannharleen.github.io/2020-03-11-id-access-tokens/
+
+In *simpler terms* it means obtain a refresh token (using authorization flow) at least once before using jwt flow [Option 2], or perform a backend approval [Option 1]
