@@ -34,7 +34,7 @@ Decrypt Y to obtain the data:
 ```
 Implying that anyone can encrypt a message/data, but only those systems/apps that have access to the private key can decrypt it. e.g. if an app wants to receive data securely, it can publish a public key. This public key can be used by another app to encrypt the data and send to the former app. The former app can then use the private key to read the data.
 
-Under symmetric encryption, i.e. when public key is the same as the private key, typically the same system/app is performing the encryption and decryption of the message/data. e.g. encrypting data at rest.
+Under symmetric encryption, i.e. when there is only 1 key (no public private key pair), typically the same system/app is performing the encryption and decryption of the message/data. e.g. encrypting data at rest. It is also used in TLS process.
 
 ### Signature (aka Digital Signature)
 ```
@@ -80,4 +80,4 @@ Message Authentication  | HMAC       | Authentication (see notes)
 Hashing                 | SHA family | Storing data
 
 # Notes:
-HMAC is used by AWS to provide programmatic access via AWS APIs. An access_key and secret_key is provided such that the access_key identifies the user and the secret_key is the private_key. When data is sent to AWS API, the AWS SDK (or CLI) signs the data using secret_key to produce HMAC. Then sends access_key, HMAC and data. AWS then verifies the identity of the user and the integrity of the message.
+HMAC is used by AWS to provide programmatic access via AWS APIs. An access_key and secret_key is provided such that the access_key identifies the user and the secret_key is the private_key. When data is sent to AWS API, the AWS SDK (or CLI) hashes then signs the data using secret_key to produce HMAC. Then sends access_key, HMAC and data. AWS then cross-references the access_key internally to obtain public_key. AWS then decrypts the HMAC using this public_key to get decrypted_hash. It then hashes the data to produce a hash. Finally, AWS verifies the integrity of the message by comparing the decrypted_hash and hash, and authenticates since public_key was corresponds to the private_key that is with the user.
