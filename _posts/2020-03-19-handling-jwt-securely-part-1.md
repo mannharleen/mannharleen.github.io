@@ -140,7 +140,8 @@ Storing a jwt in sessionStorage has the same issue, i.e. prone to XSS attack. Be
 Upon receiving a login request on /login and validating the credentials, the server instead of sending the jwt in the body would send the jwt as a cookie (Set-Cookie)
 
 Issues with this approach and mitigating it: 
-| Vulnaribility | Brief | Mitigation |
+
+| Vulnerability | Brief | Mitigation |
 |---------------|------------|--------|
 | XSS   | The client side js can read cookies | HttpOnly cookie |
 | CSRF  | Cookies are sent to the attacker    | CORS polciy, X-CSRF-TOKEN, SameSite cookie |
