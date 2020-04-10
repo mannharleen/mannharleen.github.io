@@ -9,8 +9,8 @@ comments: true
 ---
 # Handling JWT securely on your client
 This is a series of posts divided into the following parts:
-- [Handling JWT securely on your client - Part-1](https://mannharleen.github.io/2020-03-19-handling-jwt-securely-part-1)
-- [Handling JWT securely on your client - Part-2](https://mannharleen.github.io/) - not yet published
+- [Handling JWT securely on your client - Part-1](https://mannharleen.github.io/2020-03-19-handling-jwt-securely-part-1) [THIS POST]
+- [Handling JWT securely on your client - Part-2](https://mannharleen.github.io/2020-04-10-handling-jwt-securely-part-2)
 - [Handling JWT securely on your client - Part-3](https://mannharleen.github.io/) - not yet published
 - [Handling JWT securely on your client - Part-4](https://mannharleen.github.io/) - not yet published
 
@@ -19,8 +19,6 @@ This is a series of posts divided into the following parts:
 * Part-2 dives deep into overcoming limitations around the chosen option in Part-1 e.g. SSO, Silent Authentication/Refresh, etc.
 * Part-3 talks about non web-apps i.e. backend rest clients that don't run on web browsers e.g. postman
 * Part-4 talks about other values added flows such as jwt expiry, force logout etc.
-
-
 
 # Handling JWT securely on your client - Part-1
 
